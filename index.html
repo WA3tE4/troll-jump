@@ -346,61 +346,112 @@
         }
 
         /* ── MOBILE TOUCH CONTROLS ───────────────────────────────────────────── */
-        #tc { display: none; }
 
-        #tcL, #tcR {
-            position: absolute;
-            bottom: 90px;
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.03);
-            border: 1.5px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            pointer-events: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: rgba(255,255,255,0.3);
-            user-select: none;
-            transition: background 0.1s;
-            z-index: 20;
-            backdrop-filter: blur(8px);
-        }
+#tc {
+    display: none;
+}
 
-        #tcL { left: 18px; }
-        #tcR { right: 18px; }
+/* Movement buttons */
+#tcL,
+#tcR {
+    position: fixed;
+    bottom: calc(clamp(20px, 8vh, 90px) + env(safe-area-inset-bottom));
 
-        #tcL:active, #tcR:active, #tcA:active {
-            background: rgba(0,255,136,0.15);
-            border-color: rgba(0,255,136,0.4);
-        }
+    width: clamp(72px, 16vmin, 120px);
+    height: clamp(72px, 16vmin, 120px);
 
-        #tcA {
-            position: absolute;
-            bottom: 115px;
-            right: 22px;
-            width: 68px;
-            height: 68px;
-            background: rgba(0,255,136,0.08);
-            border: 1.5px solid rgba(0,255,136,0.35);
-            border-radius: 50%;
-            pointer-events: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: var(--green);
-            user-select: none;
-            z-index: 20;
-            backdrop-filter: blur(8px);
-        }
+    background: rgba(255,255,255,0.03);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
 
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(20px, 4vmin, 32px);
+    color: rgba(255,255,255,0.3);
+
+    user-select: none;
+    touch-action: none;
+
+    transition:
+        background 0.1s ease,
+        border-color 0.1s ease,
+        box-shadow 0.15s ease;
+
+    backdrop-filter: blur(8px);
+    z-index: 20;
+}
+
+/* Left movement */
+#tcL {
+    left: calc(clamp(12px, 4vw, 24px) + env(safe-area-inset-left));
+}
+
+/* Right movement */
+#tcR {
+    right: calc(clamp(100px, 20vw, 150px) + env(safe-area-inset-right));
+}
+
+/* Pressed state */
+#tcL:active,
+#tcR:active {
+    background: rgba(0,255,136,0.18);
+    border-color: rgba(0,255,136,0.45);
+    box-shadow:
+        0 0 24px rgba(0,255,136,0.25),
+        inset 0 0 12px rgba(0,255,136,0.12);
+}
+
+/* Power / Action button */
+#tcA {
+    position: fixed;
+
+    right: calc(clamp(12px, 4vw, 24px) + env(safe-area-inset-right));
+    bottom: calc(clamp(140px, 24vh, 230px) + env(safe-area-inset-bottom));
+
+    width: clamp(60px, 13vmin, 100px);
+    height: clamp(60px, 13vmin, 100px);
+
+    background: rgba(0,255,136,0.08);
+    border: 1.5px solid rgba(0,255,136,0.35);
+    border-radius: 50%;
+
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(22px, 3.5vmin, 36px);
+    color: var(--green);
+
+    user-select: none;
+    touch-action: none;
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        background 0.1s ease,
+        border-color 0.1s ease,
+        box-shadow 0.15s ease,
+        transform 0.08s ease;
+
+    z-index: 20;
+}
+
+/* Action pressed state */
+#tcA:active {
+    background: rgba(0,255,136,0.18);
+    border-color: rgba(0,255,136,0.6);
+
+    box-shadow:
+        0 0 32px rgba(0,255,136,0.4),
+        inset 0 0 16px rgba(0,255,136,0.15);
+
+    transform: scale(0.96);
+}
     </style>
-</head>
-
-<body>
-
     <!-- ═══════════════ LOADING SCREEN ═══════════════ -->
     <div id="loadScreen">
         <canvas id="loadStars"></canvas>
